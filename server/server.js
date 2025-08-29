@@ -10,19 +10,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// simple root route
+app.get("/", (req, res) => {
+  res.send("🚀 Server is running fine!");
+});
+
 // routes
 app.use("/api/tasks", taskRoutes);
 
 const PORT = process.env.PORT || 5000;
-
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
-    app.listen(PORT, () =>
+    app.listen(PORT, "0.0.0.0", () =>   // 👈 important for Render
       console.log(`✅ Server running on http://localhost:${PORT}`)
     );
   })
