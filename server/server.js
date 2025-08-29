@@ -17,6 +17,10 @@ app.get("/", (req, res) => {
 
 // routes
 app.use("/api/tasks", taskRoutes);
+// Default route for testing
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running...");
+});
 
 const PORT = process.env.PORT || 5000;
 mongoose
